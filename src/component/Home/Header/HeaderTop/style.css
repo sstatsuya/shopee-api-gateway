@@ -1,0 +1,97 @@
+.header__top {
+  margin-left: 10%;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top__left,
+.top__right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.top__left-btn,
+.top__right-btn {
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+}
+
+.top__right-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 8px;
+  margin-right: 8px;
+  text-decoration: none;
+}
+
+.top__right-btn-txt {
+  margin-top: -2px;
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.logout_btn {
+  font-size: 13px;
+  color: white;
+  margin: -4px 0 0 16px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.top__notification-btn {
+  position: relative;
+}
+
+.top__notification-btn:hover .home__notification {
+  display: block;
+}
+
+.top__notification-suggest {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: white;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  padding: 4px 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transform-origin: 90% 10%;
+  animation: showFromTopLeft ease-in-out 0.4s;
+}
+.top__notification-suggest.none{
+  display: none;
+}
+
+.top__notification-suggest::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: 10%;
+  width: 8px;
+  aspect-ratio: 1;
+  background-color: white;
+  transform: rotate(45deg);
+}
+
+.top__notification-suggest > p {
+  color: black;
+  white-space: nowrap;
+  font-size: 16px;
+  color: #ee4d2d;
+}
+
+.bell-gif{
+  width: 32px;
+  object-fit: contain;
+}

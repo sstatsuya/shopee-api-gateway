@@ -1,0 +1,271 @@
+.order__content {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 24px;
+  background-color: transparent;
+  min-height: 320px;
+  display: flex;
+}
+
+.order__user {
+  flex: 1;
+}
+
+.order__order-list {
+  flex: 5;
+  min-height: 120px;
+  margin-left: 12px;
+}
+
+.order__user-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.order__user-info-avatar {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 360px;
+  overflow: hidden;
+}
+
+.order__user-info-avatar-img {
+  width: 100%;
+}
+
+.order__user-info-name {
+  margin-left: 12px;
+}
+
+.order__user-info-name-txt {
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.order__user-info-edit-icon,
+.order__user-info-edit {
+  color: #999;
+  font-size: 14px;
+  text-decoration: underline;
+  user-select: none;
+  cursor: pointer;
+}
+
+.order__user-info-edit-icon {
+  margin-right: 4px;
+}
+
+.order__user-info {
+  border: 1px solid transparent;
+  border-bottom-color: #ddd;
+  padding-bottom: 4px;
+}
+
+.order__user-option {
+  margin-top: 22px;
+}
+
+.order__user-option-item {
+  display: flex;
+  flex-direction: row;
+  margin: 12px 0 12px 0;
+  user-select: none;
+  transition: all ease 0.4s;
+}
+
+.order__user-option-item:hover > p {
+  cursor: pointer;
+  color: #ee4d2d;
+  transition: all ease 0.4s;
+}
+
+.order__user-option-item-icon {
+  width: 16px;
+  resize: contain;
+}
+
+.order__user-option-item-txt {
+  margin-left: 8px;
+  color: #666;
+  font-size: 15px;
+}
+
+.order__order-item {
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.order__order-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.order__order-truck {
+  color: #26aa99;
+}
+
+.order__order-title {
+  font-size: 14px;
+  color: #333;
+  margin-left: 8px;
+}
+
+.order__top-fence {
+  width: 1px;
+  height: 20px;
+  background-color: #ccc;
+  margin: 0 12px 0 12px;
+}
+
+.order__order-status {
+  font-size: 14px;
+  color: #ee4d2d;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.order__order-date {
+  font-size: 13px;
+  color: #999;
+  font-weight: bold;
+}
+
+.order__order-product {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.order__order-product-img {
+  width: 80px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.order__order-product-info {
+  margin-left: 12px;
+}
+
+.order__order-product-info {
+  width: 100%;
+}
+
+.order__order-product-name {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.order__order-product-name-price-other {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 12px;
+}
+
+.order__order-product-quantity {
+  font-size: 14px;
+  color: #666;
+}
+
+.order__order-product-name-price-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.order__order-product-name-price-wrapper > p {
+  font-size: 14px;
+}
+
+.order__order-all-price {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
+
+.order__order-all-price-icon {
+  color: #ee4d2d;
+  font-size: 18px;
+}
+
+.order__order-all-price-title {
+  font-size: 14px;
+  color: black;
+  margin: 0px 12px 0 12px;
+}
+
+.order__order-all-price-number {
+  font-size: 22px;
+  color: #ee4d2d;
+  font-weight: 500;
+}
+
+.order__order-rate {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 32px;
+}
+
+.order__order-rate-left,
+.order__order-rate-right {
+  flex: 1;
+}
+
+.order__order-rate-date,
+.order__order-rate-suggest {
+  font-size: 13px;
+  color: #666;
+}
+
+.order__order-rate-suggest {
+  color: #ee4d2d;
+}
+
+.order__order-rate-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.order__order-rate-btn {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 32px;
+  margin: 0px 4px;
+  cursor: pointer;
+  transition: all ease 0.4s;
+}
+
+.order__order-rate-btn:hover {
+  filter: brightness(1.2);
+  transition: all ease 0.4s;
+}
+
+.order__order-rate-btn > p {
+  font-size: 14px;
+  user-select: none;
+}
+
+.order__order-rate-btn:first-child {
+  background-color: #ee4d2d;
+}
+
+.order__order-rate-btn:first-child > p {
+  color: white;
+}
