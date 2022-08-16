@@ -3,7 +3,7 @@ import "./App.css";
 import Home from "./component/Home";
 import Login from "./component/Login";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Redirect,
   Route,
   Switch,

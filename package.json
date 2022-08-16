@@ -2,7 +2,7 @@
   "name": "shopee-client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sstatsuya.github.io/shopee-api-gateway/",
+  "homepage": "https://sstatsuya.github.io/shopee-api-gateway",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
