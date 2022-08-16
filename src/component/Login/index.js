@@ -28,7 +28,7 @@ const Login = () => {
   const location = useLocation();
   const history = useHistory();
   const [login, loginData] = useLazyQuery(query);
-  const [username, setUsername] = useState("tien");
+  const [username, setUsername] = useState("teo");
   const [password, setPassword] = useState("123");
 
   useEffect(() => {
