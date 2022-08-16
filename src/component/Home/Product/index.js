@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { VARIABLES } from "../../../graphql/variables";
 import { useHistory } from "react-router-dom";
 import { afterSale, formatMoney } from "../../../common/helper";
+import LoadingStatic from "../../LoadingStatic";
 
 const Product = () => {
   let products = [];
@@ -22,9 +23,9 @@ const Product = () => {
     variables: VARIABLES.getProductList(),
   });
   if (getProductListData.loading) {
-    dispatch(loginActionsCreator.setLoading(true));
+    // dispatch(loginActionsCreator.setLoading(true));
   } else {
-    dispatch(loginActionsCreator.setLoading(false));
+    // dispatch(loginActionsCreator.setLoading(false));
     if (getProductListData?.data?.request?.data) {
       products =
         getProductListData?.data?.request.data[VARIABLES.getProductList().type];
@@ -39,6 +40,7 @@ const Product = () => {
     <div className="home__product">
       <p className="home__product__title">Gợi ý hôm nay</p>
       <div className="home__product__list">
+        {!getProductListData.data && <LoadingStatic width={120} />}
         {products.map((product, index) => {
           return (
             <div

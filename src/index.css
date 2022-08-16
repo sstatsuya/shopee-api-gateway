@@ -18,6 +18,11 @@ body {
   scroll-behavior: smooth;
 }
 
+body::-webkit-scrollbar {
+  width: 0px;
+  color: black
+}
+
 * {
   box-sizing: border-box;
 }
@@ -29,6 +34,11 @@ p {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.ReactCollapse--collapse {
+  transition: height 300ms;
+  width: 100%;
 }
 
 .fence {

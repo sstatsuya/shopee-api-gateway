@@ -1,3 +1,6 @@
+import { AES_KEY, LOCALSTORAGE } from "../common/constant";
+import { encryptAES256, LS } from "../common/helper";
+
 export const VARIABLES = {
   login: (username, password) => ({
     name: "user",
@@ -8,8 +11,7 @@ export const VARIABLES = {
     },
   }),
 
-  getUserInfo: (token) => ({
-    token: token,
+  getUserInfo: () => ({
     name: "user",
     type: "getUserInfo",
   }),
@@ -19,13 +21,15 @@ export const VARIABLES = {
     type: "products",
   }),
 
-  getProductInfo: (productId) => ({
-    name: "product",
-    type: "product",
-    variables: {
-      productId: productId,
-    },
-  }),
+  getProductInfo: (productId) => {
+    return {
+      name: "product",
+      type: "product",
+      variables: {
+        productId: productId,
+      },
+    };
+  },
 
   getUserCart: (userId) => ({
     name: "cart",
@@ -89,6 +93,20 @@ export const VARIABLES = {
     type: "getUserOrders",
     variables: {
       userId: userId,
+    },
+  }),
+
+  getAllOrders: () => ({
+    name: "order",
+    type: "getAllOrders",
+    variables: {},
+  }),
+
+  approveOrder: (id) => ({
+    name: "order",
+    type: "approveOrder",
+    variables: {
+      id: id,
     },
   }),
 

@@ -11,6 +11,7 @@ import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   afterSale,
   formatMoney,
+  handleRedirectError,
   LS,
   showToast,
   tokenHandle,
@@ -25,6 +26,7 @@ import * as cartActionsCreator from "./action";
 import Total from "./Total";
 import Modal from "../Modal";
 import AddOrder from "../AddOrder";
+import LoadingStatic from "../LoadingStatic";
 
 const Cart = () => {
   const userInfo = useSelector((state) => state.login.userInfo);
@@ -36,14 +38,7 @@ const Cart = () => {
   const userId = useSelector((state) => state.login.userInfo.id);
   let [quantities, setQuantities] = useState([]);
   useEffect(() => {
-    const token = LS.getItem(LOCALSTORAGE.TOKEN);
-    if (token) {
-    } else {
-      history.push({
-        pathname: PATHNAME.LOGIN,
-        needLogin: true,
-      });
-    }
+    tokenHandle(history, dispatch)
   }, []);
 
   const [carts, setCarts] = useState([]);
@@ -54,11 +49,11 @@ const Cart = () => {
 
   useEffect(() => {
     if (getUserCartData.loading) {
-      dispatch(loginActionsCreator.setLoading(true));
+      // dispatch(loginActionsCreator.setLoading(true));
     } else {
-      dispatch(loginActionsCreator.setLoading(false));
+      // dispatch(loginActionsCreator.setLoading(false));
+      // handleRedirectError(getUserCartData, history);
       if (getUserCartData?.data?.request?.data) {
-        console.log(JSON.stringify(getUserCartData.data.request.data));
         setCarts(
           getUserCartData.data.request.data[VARIABLES.getUserCart().type]
         );
@@ -90,9 +85,9 @@ const Cart = () => {
 
   useEffect(() => {
     if (deleteUserCartProductData.loading) {
-      dispatch(loginActionsCreator.setLoading(true));
+      // dispatch(loginActionsCreator.setLoading(true));
     } else {
-      dispatch(loginActionsCreator.setLoading(false));
+      // dispatch(loginActionsCreator.setLoading(false));
       if (deleteUserCartProductData?.data?.request?.data) {
         let isSuccess =
           deleteUserCartProductData.data.request.data[
@@ -111,9 +106,9 @@ const Cart = () => {
 
   useEffect(() => {
     if (deleteUserCartProductListData.loading) {
-      dispatch(loginActionsCreator.setLoading(true));
+      // dispatch(loginActionsCreator.setLoading(true));
     } else {
-      dispatch(loginActionsCreator.setLoading(false));
+      // dispatch(loginActionsCreator.setLoading(false));
       if (deleteUserCartProductListData?.data?.request?.data) {
         let isSuccess =
           deleteUserCartProductListData.data.request.data[
@@ -130,9 +125,9 @@ const Cart = () => {
   const [addOrder, addOrderData] = useLazyQuery(query);
   useEffect(() => {
     if (addOrderData.loading) {
-      dispatch(loginActionsCreator.setLoading(true));
+      // dispatch(loginActionsCreator.setLoading(true));
     } else {
-      dispatch(loginActionsCreator.setLoading(false));
+      // dispatch(loginActionsCreator.setLoading(false));
       if (addOrderData.data) {
         history.push("/order");
         showToast("Đặt hàng thành công", "success");
@@ -270,9 +265,7 @@ const Cart = () => {
         }}
         handleAddOrder={handleAddOrder}
       />
-      <div className="cart__top">
-        <HeaderTop />
-      </div>
+      <HeaderTop />
 
       {/* Logo in cart */}
       <div className="cart__header">
@@ -337,81 +330,83 @@ const Cart = () => {
         </div>
 
         {/* Cart Items */}
-        {carts && carts.map((item, index) => {
-          return (
-            <div
-              className="cart__content-item-wrapper cart__content-section"
-              key={index}
-            >
-              <div className="cart__content-item-section">
-                <input
-                  type="checkbox"
-                  className="cart__content-title-left-checkbox"
-                  checked={quantities[index].isSelect}
-                  onChange={() => {
-                    handleSelectProduct(index);
-                  }}
-                />
-                <img src={item.data.splash} className="cart__item-img" />
-                <p className="cart__item-name">{item.data.name}</p>
-              </div>
-              <div className="cart__content-item-section">
-                <div className="cart__content-item-section-child">
-                  {item.data.sale > 0 && (
-                    <p className="cart__item-txt cart__item-origin">
-                      {formatMoney(item.data.price)}{" "}
-                    </p>
-                  )}
-                  <p className="cart__item-txt cart__item-price">
-                    {formatMoney(afterSale(item.data.price, item.data.sale))}
-                  </p>
+        {!getUserCartData.data && <LoadingStatic />}
+        {carts &&
+          carts.map((item, index) => {
+            return (
+              <div
+                className="cart__content-item-wrapper cart__content-section"
+                key={index}
+              >
+                <div className="cart__content-item-section">
+                  <input
+                    type="checkbox"
+                    className="cart__content-title-left-checkbox"
+                    checked={quantities[index].isSelect}
+                    onChange={() => {
+                      handleSelectProduct(index);
+                    }}
+                  />
+                  <img src={item.data.splash} className="cart__item-img" />
+                  <p className="cart__item-name">{item.data.name}</p>
                 </div>
-                <div className="cart__content-item-section-child">
-                  <div className="cart__item-quantity-wrapper">
-                    <div
-                      className="cart__item-quantity-btn"
-                      onClick={() => {
-                        handleSetQuantity(index, -1);
-                      }}
-                    >
-                      -
-                    </div>
-                    <input
-                      type="number"
-                      className="cart__item-quantity-txt"
-                      value={quantities[index].quantity}
-                      onChange={() => {}}
-                    />
-                    <div
-                      className="cart__item-quantity-btn"
-                      onClick={() => {
-                        handleSetQuantity(index, 1);
-                      }}
-                    >
-                      +
+                <div className="cart__content-item-section">
+                  <div className="cart__content-item-section-child">
+                    {item.data.sale > 0 && (
+                      <p className="cart__item-txt cart__item-origin">
+                        {formatMoney(item.data.price)}{" "}
+                      </p>
+                    )}
+                    <p className="cart__item-txt cart__item-price">
+                      {formatMoney(afterSale(item.data.price, item.data.sale))}
+                    </p>
+                  </div>
+                  <div className="cart__content-item-section-child">
+                    <div className="cart__item-quantity-wrapper">
+                      <div
+                        className="cart__item-quantity-btn"
+                        onClick={() => {
+                          handleSetQuantity(index, -1);
+                        }}
+                      >
+                        -
+                      </div>
+                      <input
+                        type="number"
+                        className="cart__item-quantity-txt"
+                        value={quantities[index].quantity}
+                        onChange={() => {}}
+                      />
+                      <div
+                        className="cart__item-quantity-btn"
+                        onClick={() => {
+                          handleSetQuantity(index, 1);
+                        }}
+                      >
+                        +
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="cart__content-item-section-child">
-                  <p className="cart__item-txt cart__item-final-price">
-                    {formatMoney(
-                      afterSale(item.data.price, item.data.sale) *
-                        quantities[index].quantity
-                    )}
-                  </p>
-                </div>
-                <div
-                  className="cart__content-item-section-child"
-                  onClick={() => {
-                    handleDeleteCartProduct(item.id);
-                  }}
-                >
-                  <p className="cart__item-txt cart__item-delete-btn">Xóa</p>
+                  <div className="cart__content-item-section-child">
+                    <p className="cart__item-txt cart__item-final-price">
+                      {formatMoney(
+                        afterSale(item.data.price, item.data.sale) *
+                          quantities[index].quantity
+                      )}
+                    </p>
+                  </div>
+                  <div
+                    className="cart__content-item-section-child"
+                    onClick={() => {
+                      handleDeleteCartProduct(item.id);
+                    }}
+                  >
+                    <p className="cart__item-txt cart__item-delete-btn">Xóa</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );

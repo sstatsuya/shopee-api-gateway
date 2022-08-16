@@ -9,21 +9,6 @@
   box-sizing: content-box;
 }
 
-.cart__top {
-  z-index: 10;
-  width: 100%;
-  box-sizing: content-box;
-  background-image: linear-gradient(
-    to right,
-    #ee4d2d,
-    #ee4d2d,
-    #ef5b3e,
-    #ee4d2d,
-    #ee4d2d
-  );
-  padding: 12px 0 12px 0;
-}
-
 .cart__header {
   width: 100%;
   background-color: white;

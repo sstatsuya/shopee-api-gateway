@@ -1,0 +1,28 @@
+.sidebar {
+  width: 100%;
+  min-height: 100px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+}
+
+.sidebar__btn {
+  width: 100% !important;
+  padding: 12px 8px;
+  user-select: none;
+  cursor: pointer;
+  transition: all ease 0.2s;
+}
+
+.sidebar__btn:hover {
+  background-color: white;
+  color: #ee4d2d;
+  transition: all ease 0.2s;
+}
+
+.sidebar__btn.active {
+  background-color: white;
+  color: #ee4d2d;
+}

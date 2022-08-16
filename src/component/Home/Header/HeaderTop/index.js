@@ -18,24 +18,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLazyQuery } from "@apollo/client";
 import { query } from "../../../../graphql/query";
 import * as LoginAction from "../../../Login/action";
-import { showToast } from "../../../../common/helper";
+import {
+  encryptAES256,
+  showToast,
+  tokenHandle,
+} from "../../../../common/helper";
 import { handleLS } from "../../../../localStorage/handleLS";
 import { VARIABLES } from "../../../../graphql/variables";
 import { useHistory } from "react-router-dom";
 import Notification from "../../Notification";
+import * as loginActionsCreator from "../../../Login/action";
+import { AES_KEY } from "../../../../common/constant";
+import LoadingStatic from "../../../LoadingStatic";
 
 const HeaderTop = () => {
   const notificationRef = useRef();
+  const notificationBellRef = useRef();
   const [notificationQuantity, setNotificationQuantity] = useState(0);
   useEffect(() => {
     setTimeout(() => {
       if (notificationRef.current)
         notificationRef.current.classList.toggle("none", false);
-    }, 2000);
+    }, 500);
 
     setTimeout(() => {
       if (notificationRef.current)
         notificationRef.current.classList.toggle("none", true);
+      if (notificationBellRef.current)
+        notificationBellRef.current.classList.toggle("none", false);
     }, 5000);
   }, []);
   const dispatch = useDispatch();
@@ -46,7 +56,7 @@ const HeaderTop = () => {
       const currentToken = handleLS.getUserToken();
       if (currentToken) {
         getUserInfo({
-          variables: VARIABLES.getUserInfo(currentToken),
+          variables: VARIABLES.getUserInfo(),
         });
       }
     }
@@ -57,7 +67,7 @@ const HeaderTop = () => {
     if (userInfoData.loading) {
       dispatch(LoginAction.setLoading(true));
     } else {
-      dispatch(LoginAction.setLoading(false));
+      dispatch(loginActionsCreator.setLoading(false));  
       if (userInfoData?.data?.request?.data?.getUserInfo) {
         dispatch(
           LoginAction.setUserInfo(userInfoData.data.request.data.getUserInfo)
@@ -71,7 +81,6 @@ const HeaderTop = () => {
 
   // Function
   const handleLogout = () => {
-    // dispatch(LoginAction.logout());
     handleLS.removeAll();
     showToast("Đăng xuất thành công", "success");
     history.push("/login");
@@ -102,6 +111,14 @@ const HeaderTop = () => {
             >
               <img src={BellGif} className="bell-gif" />
               <p>Có {notificationQuantity} thông báo mới</p>
+            </div>
+          )}
+          {notificationQuantity > 0 && (
+            <div
+              className="top__notification-suggest bell none"
+              ref={notificationBellRef}
+            >
+              <img src={BellGif} className="bell-gif" />
             </div>
           )}
         </div>

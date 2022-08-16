@@ -1,0 +1,23 @@
+.manage {
+  width: 100%;
+  min-height: 100px;
+}
+
+.manage__body {
+  margin-top: 24px;
+  margin-left: 10%;
+  width: 80%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
+.manage__body-left {
+  width: 20%;
+}
+
+.manage__body-right {
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  width: 80%;
+}

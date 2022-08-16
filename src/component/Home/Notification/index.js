@@ -38,18 +38,20 @@ const Notification = (props) => {
     } else {
       dispatch(loginActionsCreator.setLoading(false));
       if (getUserNotificationData?.data?.request?.data) {
-        setNotifications(
-          getUserNotificationData.data.request.data[
-            VARIABLES.getUserNotification().type
-          ]
-        );
-        props.setNotificationQuantity(
-          getUnRead(
+        if (!getUserNotificationData?.data?.request?.data.isError) {
+          setNotifications(
             getUserNotificationData.data.request.data[
               VARIABLES.getUserNotification().type
             ]
-          )
-        );
+          );
+          props.setNotificationQuantity(
+            getUnRead(
+              getUserNotificationData.data.request.data[
+                VARIABLES.getUserNotification().type
+              ]
+            )
+          );
+        }
       }
       if (getUserNotificationData.error) {
         showToast("Đã có lỗi khi load thông báo", "error");
@@ -112,12 +114,14 @@ const Notification = (props) => {
 
   // Function
   const handleMarkRead = (notificationId) => {
+    props.setNotificationQuantity((prev) => prev - 1);
     markRead({
       variables: VARIABLES.markRead(notificationId),
     });
   };
 
   const handleMarkReadAll = (userId) => {
+    props.setNotificationQuantity(0);
     markReadAll({
       variables: VARIABLES.markReadAll(userId),
     });

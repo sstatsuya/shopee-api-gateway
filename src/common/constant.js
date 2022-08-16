@@ -5,14 +5,16 @@ export const PATHNAME = {
   LOGIN: "/login",
   PRODUCT: "/product/:id",
   ORDER: "/order",
+  MANAGE: "/manage",
+  ERROR: "/error",
 };
 
 export const LOCALSTORAGE = {
   TOKEN: "TOKEN",
 };
 
-export const URL = `https://n18dcat069-api-gateway.herokuapp.com/`;
+// export const URL = `https://n18dcat069-api-gateway.herokuapp.com/`;
 export const GATEWAY_API = `https://n18dcat069-api-gateway.herokuapp.com/`;
 // export const GATEWAY_API = `http://localhost:7000/`;
 
-export const AES_KEY = 'N18DCAT069'
+export const AES_KEY = "N18DCAT069N18DCA";

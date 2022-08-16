@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -13,20 +13,28 @@ import Banner from "./Banner";
 import Type from "./Type";
 import TopSearch from "./TopSearch";
 import Product from "./Product";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { tokenHandle } from "../../common/helper";
+import { useDispatch } from "react-redux";
+import * as loginActionsCreator from "../Login/action";
 
 const Home = () => {
-  const pathname = useLocation().pathname
-  tokenHandle(pathname)
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  return <div className="home">
-    <Header/>
-    <Banner/>
-    <Type/>
-    {/* <TopSearch/> */}
-    <Product/>
-  </div>;
+  // useEffect(() => {
+  //   tokenHandle(history, dispatch)
+  // }, []);
+
+  return (
+    <div className="home">
+      <Header />
+      <Banner />
+      <Type />
+      {/* <TopSearch/> */}
+      <Product />
+    </div>
+  );
 };
 
 export default Home;

@@ -1,6 +1,12 @@
-import { AES_KEY, LOCALSTORAGE, PATHNAME, URL } from "./constant";
+import { AES_KEY, GATEWAY_API, LOCALSTORAGE, PATHNAME, URL } from "./constant";
 import { toast } from "react-toastify";
 import md5 from "blueimp-md5";
+import sha256 from "crypto-js/sha256";
+import CryptoJS, { AES } from "crypto-js";
+import { queryString } from "../graphql/query";
+import { VARIABLES } from "../graphql/variables";
+import axios from "axios";
+import * as loginActionsCreator from "../component/Login/action";
 
 export const LS = {
   getItem: (key) => JSON.parse(localStorage.getItem(key)),
@@ -54,15 +60,39 @@ export const hideWarning = () => {
   };
 };
 
-export const tokenHandle = (pathname) => {
-  const token = LS.getItem(LOCALSTORAGE.TOKEN);
+export const tokenHandle = async (history = () => {}, dispatch = () => {}) => {
+  const token = LS.getItem(LOCALSTORAGE.TOKEN) || "";
   if (token) {
-  } else {
-    if (pathname === PATHNAME.CART || pathname === PATHNAME.ORDER) {
-      setTimeout(() => {
-        showToast("Dang nhap di");
-      }, 3000);
+    dispatch(loginActionsCreator.setLoading(true));
+    const response = await axios.post(
+      GATEWAY_API,
+      {
+        query: queryString,
+        variables: VARIABLES.getUserInfo(""),
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: encryptAES256(AES_KEY, `${token}`),
+        },
+      }
+    );
+    dispatch(loginActionsCreator.setLoading(false));
+    const userInfo =
+      response.data?.data?.request?.data[VARIABLES.getUserInfo().type];
+
+    if (!userInfo) {
+      console.log(JSON.stringify(response.data));
+      history.push({
+        pathname: PATHNAME.LOGIN,
+        needLogin: true,
+      });
     }
+  } else {
+    history.push({
+      pathname: PATHNAME.LOGIN,
+      needLogin: true,
+    });
   }
 };
 
@@ -70,14 +100,14 @@ export const clearAllToast = () => {
   toast.dismiss();
 };
 
-export const showToast = (message, type) => {
+export const showToast = (message, type, time = 1500) => {
   toast.dismiss();
   if (type === "default")
-    toast(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 1500 });
+    toast(message, { position: toast.POSITION.TOP_RIGHT, autoClose: time });
   else {
     toast[type](message, {
       position: toast.POSITION.TOP_RIGHT,
-      autoClose: 1500,
+      autoClose: time,
     });
   }
 };
@@ -145,6 +175,7 @@ export const timestampToDateTime = (timestamp) => {
   );
 };
 
+//1: asc, !1: desc
 export const sortArrByAttr = (arr, attr, mode = 1) => {
   const temp = [...arr];
   temp.sort((a, b) => a[attr] - b[attr]);
@@ -154,16 +185,65 @@ export const sortArrByAttr = (arr, attr, mode = 1) => {
   return temp.reverse();
 };
 
+//Hex to String
+export const fromHex = (hex, str) => {
+  try {
+    str = decodeURIComponent(hex.replace(/(..)/g, "%$1"));
+  } catch (e) {
+    str = hex;
+    console.log("invalid hex input: " + hex);
+  }
+  return str;
+};
+
+//String to Hex
+export const toHex = (str, hex) => {
+  try {
+    hex = unescape(encodeURIComponent(str))
+      .split("")
+      .map(function (v) {
+        return v.charCodeAt(0).toString(16);
+      })
+      .join("");
+  } catch (e) {
+    hex = str;
+    console.log("invalid text input: " + str);
+  }
+  return hex;
+};
+
 export const hashMD5 = (text) => {
   return md5(text);
 };
 
-// export const encryptAES256 = (key = AES_KEY, plaintext) => {
-//   // var cipher = aes256.createCipher(key);
-//   // var encryptedPlainText = cipher.encrypt(plaintext);
-//   // return encryptedPlainText;
-//   const aes = new aesEncryption();
-//   aes.setSecretKey(key);
-//   const encrypted = aes.encrypt("some-plain-text");
-//   const decrypted = aes.decrypt(encrypted);
-// };
+export const encryptAES256 = (originKey = AES_KEY, plaintext) => {
+  let text = CryptoJS.enc.Utf8.parse(plaintext);
+  let key = CryptoJS.enc.Utf8.parse(originKey);
+  var encrypted = CryptoJS.AES.encrypt(text, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.ZeroPadding,
+  });
+  encrypted = encrypted.ciphertext.toString(CryptoJS.enc.Hex);
+  return encrypted;
+};
+
+export const decryptAES256 = (originKey = AES_KEY, encrypted) => {
+  let key = CryptoJS.enc.Utf8.parse(originKey);
+  var decrypted = CryptoJS.AES.decrypt(
+    { ciphertext: CryptoJS.enc.Hex.parse(encrypted) },
+    key,
+    { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.ZeroPadding }
+  );
+  return decrypted.toString(CryptoJS.enc.Utf8);
+};
+
+export const handleRedirectError = (response, history) => {
+  if (response.data?.request?.data?.isError) {
+    history.push({
+      pathname: PATHNAME.ERROR,
+      data: {
+        message: response.data?.request?.data?.message,
+      },
+    });
+  }
+};

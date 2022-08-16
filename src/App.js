@@ -10,11 +10,24 @@ import {
 } from "react-router-dom";
 import Cart from "./component/Cart";
 import Product from "./component/Product";
-import { hideWarning, LS } from "./common/helper";
-import { GATEWAY_API, PATHNAME } from "./common/constant";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { encryptAES256, hideWarning, LS } from "./common/helper";
+import {
+  AES_KEY,
+  GATEWAY_API,
+  LOCALSTORAGE,
+  PATHNAME,
+} from "./common/constant";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import Loading from "./component/Loading";
 import Order from "./component/Order";
+import Manage from "./component/Manage";
+import Error from "./component/Error";
 
 const defaultOptions = {
   watchQuery: {
@@ -27,8 +40,22 @@ const defaultOptions = {
   },
 };
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: GATEWAY_API,
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = LS.getItem(LOCALSTORAGE.TOKEN) || "";
+  return {
+    headers: {
+      ...headers,
+      authorization: encryptAES256(AES_KEY, `${token}`),
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   defaultOptions: defaultOptions,
 });
@@ -64,6 +91,16 @@ function App() {
       path: PATHNAME.ORDER,
       exact: false,
       main: ({ match }) => <Order match={match} />,
+    },
+    {
+      path: PATHNAME.MANAGE,
+      exact: true,
+      main: ({ match }) => <Manage match={match} />,
+    },
+    {
+      path: PATHNAME.ERROR,
+      exact: true,
+      main: ({ match }) => <Error match={match} />,
     },
   ];
   hideWarning();

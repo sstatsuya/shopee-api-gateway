@@ -1,0 +1,13 @@
+.loading-static__container{
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.loading-static__img{
+  width: 120px;
+  object-fit: contain;
+}

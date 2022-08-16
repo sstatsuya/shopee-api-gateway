@@ -11,6 +11,7 @@ import {
   faShoppingCart,
   faSearch,
   faReceipt,
+  faToolbox,
 } from "@fortawesome/free-solid-svg-icons";
 import LogoImg from "../../../assets/img/ic_logo.png";
 import QRImg from "../../../assets/img/ic_qr.png";
@@ -20,12 +21,17 @@ import AppleImg from "../../../assets/img/ic_apple.png";
 import { Link, useHistory } from "react-router-dom";
 import Cart from "../Cart";
 import HeaderTop from "./HeaderTop";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const role = useSelector((state) => state.login.userInfo.role);
   const [cartQuantity, setCartQuantity] = useState(0);
   const history = useHistory();
   const goToOrder = () => {
     history.push("/order");
+  };
+  const goToManage = () => {
+    history.push("/manage");
   };
 
   return (
@@ -61,14 +67,14 @@ const Header = () => {
             <p className="suggest__txt">Quần, áo</p>
           </div>
         </div>
-        <div className="header__cart">
+        <a href="/cart" className="header__cart">
           <FontAwesomeIcon
             icon={faShoppingCart}
             className="header__cart-icon"
           />
           <p className="header__cart-quantity">{cartQuantity}</p>
           <Cart setCartQuantity={setCartQuantity} />
-        </div>
+        </a>
         <div
           className="header__order"
           onClick={() => {
@@ -78,6 +84,12 @@ const Header = () => {
           <FontAwesomeIcon icon={faReceipt} className="header__cart-icon" />
           <p className="header__order-txt">Xem các đơn hàng của bạn</p>
         </div>
+        {role === 1 && (
+          <a href="/manage" className="header__order">
+            <FontAwesomeIcon icon={faToolbox} className="header__cart-icon" />
+            <p className="header__order-txt">Quản lý Shopee</p>
+          </a>
+        )}
       </div>
     </div>
   );

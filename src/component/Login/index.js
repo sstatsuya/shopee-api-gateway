@@ -9,12 +9,17 @@ import GoogleImg from "../../assets/img/ic_google.png";
 import AppleImg from "../../assets/img/ic_apple.png";
 import { Colors } from "../../common/style";
 import { useHistory, useLocation } from "react-router-dom";
-import { clearAllToast, hashMD5, showToast } from "../../common/helper";
+import {
+  clearAllToast,
+  encryptAES256,
+  hashMD5,
+  showToast,
+} from "../../common/helper";
 import { useLazyQuery, useQuery } from "@apollo/client/react";
 import { loginQuery, query } from "../../graphql/query";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "./action";
-import { PATHNAME } from "../../common/constant";
+import { AES_KEY, PATHNAME } from "../../common/constant";
 import { handleLS } from "../../localStorage/handleLS";
 import { VARIABLES } from "../../graphql/variables";
 
@@ -23,7 +28,7 @@ const Login = () => {
   const location = useLocation();
   const history = useHistory();
   const [login, loginData] = useLazyQuery(query);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("tien");
   const [password, setPassword] = useState("123");
 
   useEffect(() => {
@@ -65,16 +70,26 @@ const Login = () => {
   // Function
   const handleLogin = (e) => {
     login({
-      variables: VARIABLES.login(username, password),
+      variables: VARIABLES.login(username, hashMD5(password)),
     });
   };
+  const goToHome = () => {
+    history.push("/")
+  }
 
   return (
     <div className="login">
       <div className="login__header flex-row-center">
         <div className="login__header__center  flex-row-center">
           <div className="login__header-title flex-row-center">
-            <img src={LogoImg} className="login__header-title-img" alt="logo" />
+            <img
+              src={LogoImg}
+              className="login__header-title-img"
+              alt="logo"
+              onClick={() => {
+                goToHome();
+              }}
+            />
             <p className="login__header-title-text">Đăng nhập</p>
           </div>
           <a

@@ -12,3 +12,14 @@ export const query = gql`
     }
   }
 `;
+
+export const queryString = `query Query(
+  $token: String
+  $name: String
+  $type: String
+  $variables: JSONObject
+) {
+  request(token: $token, name: $name, type: $type, variables: $variables) {
+    data
+  }
+}`;

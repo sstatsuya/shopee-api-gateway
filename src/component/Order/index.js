@@ -34,8 +34,10 @@ import { query } from "../../graphql/query";
 import { VARIABLES } from "../../graphql/variables";
 import "./style.css";
 import * as loginActionsCreator from "../Login/action";
+import LoadingStatic from "../LoadingStatic";
 
 const Order = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.login.userInfo);
   const { name } = userInfo;
@@ -45,10 +47,11 @@ const Order = () => {
   });
   const [orders, setOrders] = useState([]);
   useEffect(() => {
+    tokenHandle(history, dispatch);
+  }, []);
+  useEffect(() => {
     if (getUserOrdersData.loading) {
-      dispatch(loginActionsCreator.setLoading(true));
     } else {
-      dispatch(loginActionsCreator.setLoading(false));
       if (getUserOrdersData?.data?.request?.data) {
         setOrders(
           getUserOrdersData.data.request.data[VARIABLES.getUserOrders().type]
@@ -60,7 +63,13 @@ const Order = () => {
     }
   }, [getUserOrdersData]);
 
-  console.log(JSON.stringify(orders));
+  const getOrderFinalPrice = (order) => {
+    let sum = 0;
+    for (let i = 0; i < order.products.length; i++) {
+      sum += order.products[i].price * order.products[i].quantity;
+    }
+    return sum;
+  };
 
   return (
     <div className="cart">
@@ -170,6 +179,7 @@ const Order = () => {
 
         {/* Right content */}
         <div className="order__order-list">
+          {!getUserOrdersData.data && <LoadingStatic />}
           {sortArrByAttr(orders, "date", -1).map((order, index) => {
             return (
               <div className="order__order-item">
@@ -200,14 +210,14 @@ const Order = () => {
                       <div className="order__order-product-name-price-other">
                         <p className="order__order-product-quantity">x1</p>
                         <div className="order__order-product-name-price-wrapper">
-                          <p className="cart__item-txt cart__item-origin">
-                            {formatMoney(120000)}
-                          </p>
+                          {/* <p className="cart__item-txt cart__item-origin">
+                            {formatMoney(product.price)}
+                          </p> */}
                           <p
                             className="cart__item-txt cart__item-price"
                             style={{ color: "#ee4d2d" }}
                           >
-                            {formatMoney(afterSale(1200000, 10))}
+                            {formatMoney(product.price)}
                           </p>
                         </div>
                       </div>
@@ -222,7 +232,7 @@ const Order = () => {
                   />
                   <p className="order__order-all-price-title">Tổng số tiền: </p>
                   <p className="order__order-all-price-number">
-                    {formatMoney(12549283490)}{" "}
+                    {formatMoney(getOrderFinalPrice(order))}{" "}
                   </p>
                 </div>
 
