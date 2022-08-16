@@ -67,7 +67,7 @@ const HeaderTop = () => {
     if (userInfoData.loading) {
       dispatch(LoginAction.setLoading(true));
     } else {
-      dispatch(loginActionsCreator.setLoading(false));  
+      dispatch(loginActionsCreator.setLoading(false));
       if (userInfoData?.data?.request?.data?.getUserInfo) {
         dispatch(
           LoginAction.setUserInfo(userInfoData.data.request.data.getUserInfo)
@@ -83,6 +83,10 @@ const HeaderTop = () => {
   const handleLogout = () => {
     handleLS.removeAll();
     showToast("Đăng xuất thành công", "success");
+    history.push("/login");
+  };
+
+  const goToLogin = () => {
     history.push("/login");
   };
 
@@ -132,9 +136,14 @@ const HeaderTop = () => {
         </div>
         {!fullName && (
           <>
-            <a className="top__right-btn" href="/login">
+            <p
+              className="top__right-btn"
+              onClick={() => {
+                goToLogin();
+              }}
+            >
               Đăng nhập
-            </a>
+            </p>
             <div className="fence nomargin" />
             <p className="top__right-btn">Đăng ký</p>
           </>

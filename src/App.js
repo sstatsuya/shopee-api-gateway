@@ -107,7 +107,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Router base="/shopee-api-gateway/#/">
+        <Router base="/">
           <Loading />
           <Switch>
             {routes.map((route, index) => {

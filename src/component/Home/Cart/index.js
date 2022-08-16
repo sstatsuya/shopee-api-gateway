@@ -38,6 +38,9 @@ const Cart = (props) => {
     history.push(`/product/${productId}`);
   };
 
+  const goToCart = () => {
+    history.push("/cart");
+  };
   return (
     <div className="home__cart">
       <p className="home__cart__title">Sản phẩm mới thêm</p>
@@ -73,9 +76,14 @@ const Cart = (props) => {
           );
         })} */}
       </div>
-      <a href="/cart" className="home__cart__show-btn">
+      <div
+        onClick={() => {
+          goToCart();
+        }}
+        className="home__cart__show-btn"
+      >
         Xem giỏ hàng
-      </a>
+      </div>
     </div>
   );
 };

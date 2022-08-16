@@ -71,6 +71,10 @@ const Order = () => {
     return sum;
   };
 
+  const goToHome = () => {
+    history.push("/home");
+  };
+
   return (
     <div className="cart">
       <div className="cart__top">
@@ -81,9 +85,14 @@ const Order = () => {
       <div className="cart__header">
         <div className="cart__header-content">
           <div className="cart__header-logo-wrapper">
-            <a className="nav-a" href="/home">
+            <div
+              className="nav-a"
+              onClick={() => {
+                goToHome();
+              }}
+            >
               <img src={LogoImg} className="cart__header-content-img" />
-            </a>
+            </div>
 
             <div className="fence-orange" />
             <p className="cart__header-content-title">Đơn hàng của bạn</p>

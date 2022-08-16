@@ -33,6 +33,12 @@ const Header = () => {
   const goToManage = () => {
     history.push("/manage");
   };
+  const goToHome = () => {
+    history.push("/home");
+  };
+  const goToCart = () => {
+    history.push("/cart");
+  };
 
   return (
     <div className="header">
@@ -41,9 +47,14 @@ const Header = () => {
 
       {/* Search header */}
       <div className="header__center">
-        <a className="header__logo" href="/home">
+        <p
+          className="header__logo"
+          onClick={() => {
+            goToHome();
+          }}
+        >
           <img src={LogoImg} className="logo-img" />
-        </a>
+        </p>
         <div className="header__search">
           <div className="search-bg">
             <input
@@ -67,14 +78,19 @@ const Header = () => {
             <p className="suggest__txt">Quần, áo</p>
           </div>
         </div>
-        <a href="/cart" className="header__cart">
+        <div
+          onClick={() => {
+            goToCart();
+          }}
+          className="header__cart"
+        >
           <FontAwesomeIcon
             icon={faShoppingCart}
             className="header__cart-icon"
           />
           <p className="header__cart-quantity">{cartQuantity}</p>
           <Cart setCartQuantity={setCartQuantity} />
-        </a>
+        </div>
         <div
           className="header__order"
           onClick={() => {
@@ -85,10 +101,15 @@ const Header = () => {
           <p className="header__order-txt">Xem các đơn hàng của bạn</p>
         </div>
         {role === 1 && (
-          <a href="/manage" className="header__order">
+          <div
+            className="header__order"
+            onClick={() => {
+              goToManage();
+            }}
+          >
             <FontAwesomeIcon icon={faToolbox} className="header__cart-icon" />
             <p className="header__order-txt">Quản lý Shopee</p>
-          </a>
+          </div>
         )}
       </div>
     </div>

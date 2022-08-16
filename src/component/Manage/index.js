@@ -84,15 +84,25 @@ const Manage = () => {
       component: <ManageOrder />,
     },
   ];
+
+  const goToHome = () => {
+    history.push("/home");
+  };
+
   return (
     <div className="manage">
       <HeaderTop />
       <div className="cart__header">
         <div className="cart__header-content">
           <div className="cart__header-logo-wrapper">
-            <a className="nav-a" href="/home">
+            <p
+              className="nav-a"
+              onClick={() => {
+                goToHome();
+              }}
+            >
               <img src={LogoImg} className="cart__header-content-img" />
-            </a>
+            </p>
 
             <div className="fence-orange" />
             <p className="cart__header-content-title">Quản lý Shopee</p>
