@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/shopee-api-gateway/static/css/main.99e799d0.css",
-    "main.js": "/shopee-api-gateway/static/js/main.371bc450.js",
+    "main.js": "/shopee-api-gateway/static/js/main.af340a1e.js",
     "static/js/787.9d8ed9a4.chunk.js": "/shopee-api-gateway/static/js/787.9d8ed9a4.chunk.js",
     "static/media/ic_loading_smooth2.gif": "/shopee-api-gateway/static/media/ic_loading_smooth2.b3c9ce3f91c716b9a788.gif",
     "static/media/ic_bell2.gif": "/shopee-api-gateway/static/media/ic_bell2.0023aac4c3f94df11a5b.gif",
@@ -53,11 +53,11 @@
     "static/media/ic_blink_sale.gif": "/shopee-api-gateway/static/media/ic_blink_sale.97fe94e795f179330450.gif",
     "index.html": "/shopee-api-gateway/index.html",
     "main.99e799d0.css.map": "/shopee-api-gateway/static/css/main.99e799d0.css.map",
-    "main.371bc450.js.map": "/shopee-api-gateway/static/js/main.371bc450.js.map",
+    "main.af340a1e.js.map": "/shopee-api-gateway/static/js/main.af340a1e.js.map",
     "787.9d8ed9a4.chunk.js.map": "/shopee-api-gateway/static/js/787.9d8ed9a4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.99e799d0.css",
-    "static/js/main.371bc450.js"
+    "static/js/main.af340a1e.js"
   ]
 }
