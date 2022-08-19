@@ -11,6 +11,7 @@ import { Colors } from "../../common/style";
 import { useHistory, useLocation } from "react-router-dom";
 import {
   clearAllToast,
+  decryptAES256,
   encryptAES256,
   hashMD5,
   showToast,
@@ -44,7 +45,10 @@ const Login = () => {
       clearAllToast();
       handleLS.setUserToken(
         JSON.stringify(
-          loginData.data.request.data[VARIABLES.login().type].token
+          decryptAES256(
+            AES_KEY,
+            loginData.data.request.data[VARIABLES.login().type].token
+          )
         )
       );
       dispatch(Actions.setUserInfo(loginData.data.request.data.login));
@@ -62,7 +66,7 @@ const Login = () => {
         checkQueryResponse();
       }
       if (loginData.error) {
-        alert("Loi roi: " + loginData.error);
+        showToast("Đã có lỗi khi đăng nhập", "error");
       }
     }
   }, [loginData.loading]);
@@ -74,8 +78,8 @@ const Login = () => {
     });
   };
   const goToHome = () => {
-    history.push("/")
-  }
+    history.push("/");
+  };
 
   return (
     <div className="login">
