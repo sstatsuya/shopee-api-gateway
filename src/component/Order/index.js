@@ -191,19 +191,26 @@ const Order = () => {
           {!getUserOrdersData.data && <LoadingStatic />}
           {sortArrByAttr(orders, "date", -1).map((order, index) => {
             return (
-              <div className="order__order-item">
+              <div className="order__order-item" key={index}>
                 <div className="order__order-top">
                   <FontAwesomeIcon
                     icon={faShippingFast}
                     className="order__order-truck"
                   />
-                  <p className="order__order-title">Giao thành công</p>
+                  {order.status == 2 && (
+                    <p className="order__order-title">Giao thành công</p>
+                  )}
+                  {order.status == 1 && (
+                    <p className="order__order-title">Chờ duyệt</p>
+                  )}
                   <div className="order__top-fence" />
                   <p className="order__order-date">
                     {timestampToDateTime(order.date)}
                   </p>
                   <div className="order__top-fence" />
-                  <p className="order__order-status">Đã giao</p>
+                  {order.status == 2 && (
+                    <p className="order__order-status">Đã giao</p>
+                  )}
                 </div>
 
                 {order.products.map((product, index) => (

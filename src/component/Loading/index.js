@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 const Loading = () => {
   const [isShow, setIsShow] = useState(false);
   const isLoading = useSelector((state) => state.login.isLoading);
-  console.log(isLoading);
   useEffect(() => {
     if (isLoading) setIsShow(true);
     else {
