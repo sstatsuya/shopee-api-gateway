@@ -86,8 +86,13 @@ const HeaderTop = () => {
     history.push("/login");
   };
 
-  const goToLogin = () => {
-    history.push("/login");
+  const goToLogin = (isMySql = false) => {
+    history.push({
+      pathname: "/login",
+      data: {
+        isMySql: isMySql,
+      },
+    });
   };
 
   return (
@@ -134,6 +139,15 @@ const HeaderTop = () => {
           <FontAwesomeIcon icon={faGlobe} className="header__icon" />
           <p className="top__right-btn-txt">Tiếng Việt</p>
         </div>
+        <p
+          className="top__right-btn"
+          onClick={() => {
+            goToLogin(true);
+          }}
+        >
+          Login with MySql
+        </p>
+        <div className="fence nomargin" />
         {!fullName && (
           <>
             <p

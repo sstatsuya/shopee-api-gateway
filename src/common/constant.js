@@ -6,6 +6,7 @@ export const PATHNAME = {
   PRODUCT: "/product/:id",
   ORDER: "/order",
   MANAGE: "/manage",
+  PROFILE: "/profile",
   ERROR: "/error",
 };
 

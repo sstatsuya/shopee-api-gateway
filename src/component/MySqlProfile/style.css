@@ -1,0 +1,172 @@
+.half {
+  width: 50% !important;
+}
+.my-sql-profile {
+  width: 100%;
+  height: 100%;
+  padding-top: 4%;
+  background-color: #5f1000;
+}
+.profile__card_wrapper {
+  width: 80%;
+  height: 92%;
+  margin: auto auto;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+}
+.profile__card__avatar-wrapper {
+}
+.profile__card_wrapper > div:nth-child(1) {
+  width: 20%;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile__card_wrapper > div:nth-child(2) {
+  padding: 12px;
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid #ccc;
+}
+.profile__card__avatar-img {
+  width: 120px;
+  aspect-ratio: 1;
+  border-radius: 360px;
+  border: 1px solid #ee4d2d;
+  margin-top: 32px;
+}
+.profile__card__name {
+  font-weight: bold;
+  color: #333;
+  font-size: 18px;
+  margin-top: 4px;
+}
+.profile__card__username {
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.profile__card__setting-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.profile__card__setting__title {
+  font-size: 18px;
+  font-weight: 500;
+  width: 100%;
+}
+.profile__card__input-wrapper {
+  width: 100%;
+  margin: 12px 0;
+  padding: 0 4px;
+}
+.profile__card__input__label {
+  font-size: 15px;
+  color: #666;
+  font-weight: 500;
+}
+.profile__card__input {
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 6px;
+  margin-top: 4px;
+  width: 100%;
+  transition: all ease 0.4s;
+}
+.profile__card__input:focus {
+  border: 1px solid rgb(30, 0, 255);
+  transition: all ease 0.4s;
+}
+.profile__card-wallet {
+  width: 50%;
+  background-color: #eee;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px;
+  margin: 24px;
+}
+.profile__card-wallet__icon-bg {
+  width: 40px;
+  height: 40px;
+  background-color: #5957fa;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile__card-wallet__icon-color {
+  width: 26px;
+  height: 26px;
+  border-radius: 360px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile__card-wallet__icon {
+  color: #5957fa;
+  font-weight: bold;
+}
+.profile__card-wallet-balance-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 12px;
+}
+.profile__card-wallet-balance-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+.profile__card-wallet-balance-number {
+  font-size: 14px;
+  margin-top: 2px;
+  color: #5957fa;
+  font-weight: 500;
+}
+.profile__card__something-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.profile__card__other {
+  font-size: 14px;
+  color: #666;
+  transition: all ease 0.4s;
+  cursor: pointer;
+  margin: 12px 24px;
+  user-select: none;
+  font-weight: bold;
+}
+.profile__card__other:hover {
+  color: #5957fa;
+  transition: all ease 0.4s;
+}
+.profile__card__login-btn {
+  width: 100px;
+  background-color: #ccc;
+  border-radius: 8px;
+  padding: 4px;
+  align-self: flex-end;
+  margin: 0 12px 12px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: all ease 0.4s;
+}
+.profile__card__login-btn:hover {
+  opacity: 0.8;
+  transition: all ease 0.4s;
+}
+.flex1 {
+  flex: 1;
+}

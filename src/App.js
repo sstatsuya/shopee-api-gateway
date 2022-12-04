@@ -28,6 +28,7 @@ import Loading from "./component/Loading";
 import Order from "./component/Order";
 import Manage from "./component/Manage";
 import Error from "./component/Error";
+import MySqlProfile from "./component/MySqlProfile";
 
 const defaultOptions = {
   watchQuery: {
@@ -96,6 +97,11 @@ function App() {
       path: PATHNAME.MANAGE,
       exact: true,
       main: ({ match }) => <Manage match={match} />,
+    },
+    {
+      path: PATHNAME.PROFILE,
+      exact: true,
+      main: ({ match }) => <MySqlProfile match={match} />,
     },
     {
       path: PATHNAME.ERROR,

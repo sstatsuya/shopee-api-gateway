@@ -11,6 +11,7 @@ import FacebookImg from "../../assets/img/ic_facebook.png";
 import PinterestImg from "../../assets/img/ic_pinterest.png";
 import TwitterImg from "../../assets/img/ic_twitter.png";
 import MessengerImg from "../../assets/img/ic_messenger.png";
+import UserImg from "../../assets/img/ic_empty_user.png";
 import Header from "../Home/Header";
 import { useHistory } from "react-router-dom";
 import { useLazyQuery, useQuery } from "@apollo/client";
@@ -23,6 +24,7 @@ import {
   formatMoney,
   reloadPage,
   showToast,
+  timestampToDateTime,
 } from "../../common/helper";
 import LoadingStatic from "../LoadingStatic";
 
@@ -307,6 +309,25 @@ const Product = (props) => {
               <p className="product__desc-txt" key={index}>
                 {item}
               </p>
+            ))}
+            <p className="product__desc-title">Bình luận</p>
+            {product.comments.map((item, index) => (
+              <div className="product__desc-comment" key={index}>
+                <div className="product__desc-comment-wrapper">
+                  <div className="product__desc-comment-avatar-wrapper">
+                    <img
+                      className="product__desc-comment-avatar"
+                      src={UserImg}
+                    />
+                  </div>
+                  <div className="product__desc-comment-content-wrapper">
+                    <p>Người dùng ẩn danh</p>
+                    <p>{timestampToDateTime(item.time)}</p>
+                    <p>{item.content}</p>
+                  </div>
+                </div>
+                <div className="product__desc-comment-line" />
+              </div>
             ))}
           </div>
         </>

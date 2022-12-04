@@ -29,7 +29,7 @@ const Cart = (props) => {
   } else {
     dispatch(loginActionsCreator.setLoading(false));
 
-    carts = getUserCartData?.data?.request.data[VARIABLES.getUserCart().type];
+    carts = getUserCartData?.data?.request?.data[VARIABLES.getUserCart().type];
     if (carts) props.setCartQuantity(carts.length);
   }
 

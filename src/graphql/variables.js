@@ -10,6 +10,14 @@ export const VARIABLES = {
       password,
     },
   }),
+  loginWithMySql: (username, password) => ({
+    name: "user",
+    type: "loginWithMySql",
+    variables: {
+      username,
+      password,
+    },
+  }),
 
   getUserInfo: () => ({
     name: "user",

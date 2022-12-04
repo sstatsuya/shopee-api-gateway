@@ -31,6 +31,7 @@ const Login = () => {
   const [login, loginData] = useLazyQuery(query);
   const [username, setUsername] = useState("teo");
   const [password, setPassword] = useState("123");
+  const [isShowPassword, setIsShowPassword] = useState(false);
 
   useEffect(() => {
     if (location.needLogin) {
@@ -39,21 +40,34 @@ const Login = () => {
   }, []);
 
   const checkQueryResponse = () => {
-    if (!loginData.data.request?.data?.login) {
-      showToast("Thông tin sai", "error");
+    if (location?.data?.isMySql) {
+      if (!loginData.data.request?.data?.loginMySql?.id) {
+        showToast("Thông tin sai", "error");
+      } else {
+        clearAllToast();
+        showToast("Đăng nhập thành công", "success");
+        history.push({
+          pathname: "/profile",
+          data: loginData.data.request?.data?.loginMySql,
+        });
+      }
     } else {
-      clearAllToast();
-      handleLS.setUserToken(
-        JSON.stringify(
-          decryptAES256(
-            AES_KEY,
-            loginData.data.request.data[VARIABLES.login().type].token
+      if (!loginData.data.request?.data?.login) {
+        showToast("Thông tin sai", "error");
+      } else {
+        clearAllToast();
+        handleLS.setUserToken(
+          JSON.stringify(
+            decryptAES256(
+              AES_KEY,
+              loginData.data.request.data[VARIABLES.login().type].token
+            )
           )
-        )
-      );
-      dispatch(Actions.setUserInfo(loginData.data.request.data.login));
-      showToast("Đăng nhập thành công", "success");
-      history.push(PATHNAME.HOME);
+        );
+        dispatch(Actions.setUserInfo(loginData.data.request.data.login));
+        showToast("Đăng nhập thành công", "success");
+        history.push(PATHNAME.HOME);
+      }
     }
   };
 
@@ -73,12 +87,19 @@ const Login = () => {
 
   // Function
   const handleLogin = (e) => {
-    login({
-      variables: VARIABLES.login(username, hashMD5(password)),
-    });
+    if (location?.data?.isMySql) {
+      login({
+        variables: VARIABLES.loginWithMySql(username, password),
+      });
+    } else {
+      login({
+        variables: VARIABLES.login(username, hashMD5(password)),
+      });
+    }
   };
   const goToHome = () => {
     history.push("/");
+    history.go(0);
   };
 
   return (
@@ -139,7 +160,7 @@ const Login = () => {
                 </div>
                 <div className="input-wrapper">
                   <input
-                    type="password"
+                    type={isShowPassword ? "text" : "password"}
                     className="input"
                     placeholder="Mật khẩu"
                     value={password}
@@ -147,7 +168,13 @@ const Login = () => {
                       setPassword(e.target.value);
                     }}
                   />
-                  <FontAwesomeIcon icon={faEyeSlash} className="icon-eye" />
+                  <FontAwesomeIcon
+                    icon={isShowPassword ? faEyeSlash : faEye}
+                    className="icon-eye"
+                    onClick={() => {
+                      setIsShowPassword(!isShowPassword);
+                    }}
+                  />
                 </div>
                 <button
                   className="input-submit"
@@ -155,7 +182,7 @@ const Login = () => {
                     handleLogin();
                   }}
                 >
-                  Đăng nhập
+                  {location?.data?.isMySql ? "Login with MySql" : "Đăng nhập"}
                 </button>
               </form>
             </div>
