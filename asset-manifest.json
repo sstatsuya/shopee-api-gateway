@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/shopee-api-gateway/static/css/main.99e799d0.css",
-    "main.js": "/shopee-api-gateway/static/js/main.fd024898.js",
+    "main.css": "/shopee-api-gateway/static/css/main.2b4fe09b.css",
+    "main.js": "/shopee-api-gateway/static/js/main.e8b8ed91.js",
     "static/js/787.9d8ed9a4.chunk.js": "/shopee-api-gateway/static/js/787.9d8ed9a4.chunk.js",
     "static/media/ic_loading_smooth2.gif": "/shopee-api-gateway/static/media/ic_loading_smooth2.b3c9ce3f91c716b9a788.gif",
     "static/media/ic_bell2.gif": "/shopee-api-gateway/static/media/ic_bell2.0023aac4c3f94df11a5b.gif",
@@ -52,12 +52,12 @@
     "static/media/ic_pinterest.png": "/shopee-api-gateway/static/media/ic_pinterest.2eb27b8dc16b216331c7.png",
     "static/media/ic_blink_sale.gif": "/shopee-api-gateway/static/media/ic_blink_sale.97fe94e795f179330450.gif",
     "index.html": "/shopee-api-gateway/index.html",
-    "main.99e799d0.css.map": "/shopee-api-gateway/static/css/main.99e799d0.css.map",
-    "main.fd024898.js.map": "/shopee-api-gateway/static/js/main.fd024898.js.map",
+    "main.2b4fe09b.css.map": "/shopee-api-gateway/static/css/main.2b4fe09b.css.map",
+    "main.e8b8ed91.js.map": "/shopee-api-gateway/static/js/main.e8b8ed91.js.map",
     "787.9d8ed9a4.chunk.js.map": "/shopee-api-gateway/static/js/787.9d8ed9a4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.99e799d0.css",
-    "static/js/main.fd024898.js"
+    "static/css/main.2b4fe09b.css",
+    "static/js/main.e8b8ed91.js"
   ]
 }
